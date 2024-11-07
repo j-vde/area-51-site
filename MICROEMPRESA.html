@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área 51</title>
+    <!-- Link para o Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link para o CSS do Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Estilos adicionais -->
+    <style>
+        /* Estilo para a seção principal */
+        .hero {
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+        }
+        .hero p {
+            font-size: 1.2em;
+        }
+        /* Navbar fixa */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        body {
+            padding-top: 70px; /* Compensa a altura da navbar fixa */
+        }
+        /* Cards para serviços e contato */
+        .service-card, .contact-card, #mapa {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        /* Botão de envio estilizado */
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Seção principal com imagem de fundo -->
+    <section class="hero">
+        <h1>Bem-vindo à Área 51</h1>
+        <p>Serviços de impressão, digitalização e mais para sua comodidade</p>
+    </section>
+
+    <!-- Navbar fixa -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Área 51</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+                <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Seção Sobre a Empresa -->
+    <section id="sobre" class="container mt-5">
+        <h2>Sobre Nós</h2>
+        <p>Oferecemos serviços de impressão, digitalização e cópias de documentos com qualidade e compromisso.</p>
+    </section>
+
+    <!-- Seção de Serviços com Cards -->
+    <section id="servicos" class="container mt-5">
+        <h2>Serviços Oferecidos</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service-card">
+                    <h5>Impressões e xerox</h5>
+                    <p>Realizamos impressões de alta qualidade em diversos formatos e tipos de papel.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <h5>Digitalização e contratos</h5>
+                    <p>Digitalizamos documentos com precisão e oferecemos criação de contratos personalizados.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <h5>Divisão de IPVA</h5>
+                    <p>Facilitamos o pagamento do IPVA em até 12x no cartão de crédito.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Contato e Mapa -->
+    <section id="contato" class="container mt-5">
+        <h2>Contato</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contact-card">
+                    <p><strong>Telefone/WhatsApp:</strong> (32) 9 8402-1194</p>
+                    <p><strong>Horário de Funcionamento:</strong> Segunda a Sexta, das 9h às 19h</p>
+                    <!-- Formulário de Contato Integrado ao Formspree -->
+                    <form action="https://formspree.io/f/xzzbrawo" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="_replyto" placeholder="Seu e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="Sua mensagem" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-custom">Enviar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="mapa" class="contact-card" style="width:100%; height:300px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Link para o JavaScript do Bootstrap e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para o Leaflet.js -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Inicializar o mapa com as coordenadas fornecidas
+        var map = L.map('mapa').setView([-21.909417, -43.387250], 15); // Coordenadas: Latitude e Longitude
+
+        // Adicionar o tile layer do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Adicionar um marcador no local da empresa
+        L.marker([-21.909417, -43.387250]).addTo(map)
+            .bindPopup('Localização da Área 51')
+            .openPopup();
+    </script>
+
+</body>
+</html>
